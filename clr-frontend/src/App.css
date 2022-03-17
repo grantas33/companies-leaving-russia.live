@@ -1,0 +1,59 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.App-header {
+  background-color: #ffffff;
+  font-size: calc(10px + 2vmin);
+  color: #000000;
+}
+
+.grid {
+  width: 75%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 12px;
+}
+
+.logo-container {
+  filter: grayscale(1) contrast(0.25) brightness(1.6);
+  transition: 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.logo-container:hover {
+  filter: none;
+  transform: scale(1.02);
+}
+
+.sidebar {
+  width: 25%;
+  position: sticky;
+  top: 20px;
+  height: 100vh;
+  margin: 15px;
+}
+
+.selected-company {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 60%;
+}
+
+@keyframes fade {
+  0%,100% { opacity: 0 }
+  50% { opacity: 1 }
+}
