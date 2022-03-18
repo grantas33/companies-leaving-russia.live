@@ -1,10 +1,17 @@
 import './App.css';
 import {useEffect, useState} from "react";
-import {CompanyWithLogo} from "../../models";
+import {CompanyWithDynamicData, MainPage} from "../../models";
+import * as dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc';
+import GitHubButton from 'react-github-btn'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+
+dayjs.extend(utc)
+dayjs.extend(localizedFormat)
 
 type CardProps = {
-    company: CompanyWithLogo,
-    setSelectedCompany: (company?: CompanyWithLogo) => void
+    company: CompanyWithDynamicData,
+    setSelectedCompany: (company?: CompanyWithDynamicData) => void
 }
 
 function Card(props: CardProps) {
@@ -20,21 +27,21 @@ function Card(props: CardProps) {
 
 function App() {
 
-    let [companies, setCompanies] = useState<CompanyWithLogo[]>()
-    let [selectedCompany, setSelectedCompany] = useState<CompanyWithLogo|undefined>();
+    let [mainPage, setMainPage] = useState<MainPage>()
+    let [selectedCompany, setSelectedCompany] = useState<CompanyWithDynamicData|undefined>();
 
     useEffect(() => {
-        fetch(`http://localhost:8080/list`)
+        fetch(`/main`)
             .then(response => response.json())
-            .then(c => { setCompanies(c) })
+            .then(m => { setMainPage(m) })
     }, [])
 
 
   return (
       <div className="App">
           <div className={"grid"}>
-              { companies &&
-                  companies.map(it => <Card company={it} setSelectedCompany={company => {setSelectedCompany(company)}}/>)
+              { mainPage &&
+                  mainPage.companies.map(it => <Card key={it.title} company={it} setSelectedCompany={company => {setSelectedCompany(company)}}/>)
               }
           </div>
           <div className={"sidebar"}>
@@ -46,9 +53,45 @@ function App() {
                       <header className="App-header">
                           {selectedCompany.title}
                       </header>
-                      <p>
-                          {selectedCompany.description}
-                      </p>
+                      {
+                          selectedCompany.summary && <>
+                            <i>{selectedCompany.summary}</i>
+                          </>
+                      }
+                      {
+                          selectedCompany.description && <>
+                              <p>
+                                  <b>Suspended operations</b>
+                              </p>
+                              <p>
+                                  {selectedCompany.description}
+                              </p>
+                          </>
+                      }
+                      {
+                          selectedCompany.sourceHtml.length > 0 && <div className={"hidden-mb"}>
+                              <p>
+                                  <b>Sources</b>
+                              </p>
+                              <ul>
+                                  {selectedCompany.sourceHtml.map((it, idx) => <li key={idx} dangerouslySetInnerHTML={{__html: it}}/>)}
+                              </ul>
+                          </div>
+                      }
+                  </div>
+              }
+              {
+                  mainPage && <div className={"bottom-strip"}>
+                      <div>
+                          Last updated at: {dayjs.utc(mainPage.lastUpdatedAt).local().format('L LT')}
+                      </div>
+                      <div>
+                          <GitHubButton href={process.env.REACT_APP_GITHUB_REPO!!} data-icon="octicon-star"
+                                        data-size="large"
+                                        aria-label="Star me on GitHub">
+                              Star
+                          </GitHubButton>
+                      </div>
                   </div>
               }
           </div>

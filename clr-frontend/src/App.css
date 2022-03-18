@@ -25,6 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 200px;
 }
 
 .logo {
@@ -39,6 +40,7 @@
 
 .sidebar {
   width: 25%;
+  min-width: 450px;
   position: sticky;
   top: 20px;
   height: 100vh;
@@ -46,14 +48,84 @@
 }
 
 .selected-company {
+  height: 75%;
+  margin-top: 80px;
+}
+
+.bottom-strip {
+  position: absolute;
+  bottom: 25px;
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 60%;
+  justify-content: space-between;
 }
 
 @keyframes fade {
   0%,100% { opacity: 0 }
   50% { opacity: 1 }
 }
+
+@media (max-width: 1700px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1600px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1170px) {
+  .App-header {
+    margin-top: 10px;
+  }
+  .App {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    position: sticky;
+    bottom: 0px;
+    top: unset;
+    height: 40vh;
+    margin: unset;
+    background-color: white;
+    min-width: unset;
+    border-top: 2px solid black;
+  }
+  .selected-company {
+    height: unset;
+    margin-top: 10px;
+  }
+  .grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hidden-mb {
+    visibility: hidden;
+  }
+
+  .logo {
+    max-width: 130px;
+    max-height: 130px;
+  }
+
+  .logo-container {
+    height: 130px;
+  }
+  .bottom-strip {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+  }
+}
+

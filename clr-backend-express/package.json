@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node dist/clr-backend-express/src/index.js",
     "dev": "nodemon src/index.ts",
     "build": "tsc -p ."
   },
@@ -14,6 +14,7 @@
     "@types/express": "^4.17.13",
     "axios": "^0.26.1",
     "compression": "^1.7.4",
+    "dayjs": "^1.11.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "google-spreadsheet": "^3.2.0",
