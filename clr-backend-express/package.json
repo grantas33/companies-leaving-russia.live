@@ -7,7 +7,7 @@
     "start": "node dist/clr-backend-express/src/index.js",
     "dev": "nodemon src/index.ts",
     "build": "tsc -p .",
-    "build-all": "npm --prefix ../clr-frontend run build && tsc -p ."
+    "build-all": "npm --prefix ../clr-frontend install && npm --prefix ../clr-frontend run build && tsc -p ."
   },
   "author": "",
   "license": "ISC",
