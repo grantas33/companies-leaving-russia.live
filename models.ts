@@ -3,6 +3,7 @@ export type Company = {
     industry: string,
     country: string,
     description: string,
+    remainingOperations: string,
     sourceHtml: string[]
 }
 

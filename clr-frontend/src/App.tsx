@@ -69,6 +69,16 @@ function App() {
                           </>
                       }
                       {
+                          selectedCompany.remainingOperations && <div className={"hidden-mb"}>
+                              <p>
+                                  <b>Remaining operations</b>
+                              </p>
+                              <p>
+                                  {selectedCompany.remainingOperations}
+                              </p>
+                          </div>
+                      }
+                      {
                           selectedCompany.sourceHtml.length > 0 && <div className={"hidden-mb"}>
                               <p>
                                   <b>Sources</b>

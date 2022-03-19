@@ -116,7 +116,8 @@ function parseWikiResponse(response: string): Company[]|undefined {
             industry: fields[1].childNodes[0].text.trim(),
             country: fields[2].childNodes[0].text.trim(),
             description: extractReadableText(fields[3]),
-            sourceHtml: extractSources(fields[3]).map(it => references?.[it] || "")
+            sourceHtml: [...new Set(extractSources(fields[3]).concat(extractSources(fields[4])))].map(it => references?.[it] || ""),
+            remainingOperations: extractReadableText(fields[4])
         }
     })
 }
